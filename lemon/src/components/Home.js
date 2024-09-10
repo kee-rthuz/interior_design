@@ -5,18 +5,12 @@
 
 
 
-
-
-
-
-
-
-
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ReactPlayer from 'react-player';
 import { Twitter, Facebook, Instagram, Linkedin } from 'lucide-react';
+import video from '../asstes/video.mp4'
 import PopupForm from './Contact';
 // Import your images here
 import Bg from '../asstes/a.avif';
@@ -39,34 +33,40 @@ import Zn from '../asstes/14.avif';
 
 import Navigation from './MiddleNavbar';
 
+
 const VideoOverlaySection = ({ openPopup }) => {
   return (
     <div className="relative w-full h-screen mt-16 sm:mt-24">
       {/* Video Background */}
-      <ReactPlayer
-        url="https://videos.pexels.com/video-files/7578552/7578552-uhd_3840_2160_30fps.mp4"
-        playing={true}
-        loop={true}
-        muted={true}
-        width="100%"
-        height="100%"
-        style={{ position: 'absolute', top: 0, left: 0 }}
-      />
+      <div className="absolute inset-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src={video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
 
       {/* Text Content */}
-      <div className="relative h-[500px] w-[500px]">
+      <div className="relative h-full w-full">
         {/* Border Container */}
-        <div className="border-container absolute top-48 z-10 -ml-32 left-[400px] h-[550px] w-[310px] border-blue-400 border-4"></div>
+        <div className="border-container absolute top-2/4 left-4 sm:top-[40px] sm:-ml-32 sm:left-[400px] h-[600px] sm:h-[450px] w-[200px] sm:w-[210px] border-blue-400 border-4 z-10"></div>
 
         {/* Text and Button Container */}
-        <div className="relative z-20 text-white flex flex-col items-start justify-center h-full px-8 md:ml-[22rem]">
-          <span className="block font-bold text-sm uppercase tracking-wide mt-[550px]">House</span>
-          <h1 className="text-4xl md:text-7xl font-extrabold leading-none">
-            Customised<br />Completion
-          </h1>
+        <div className="relative sm:top-[-360px] z-20 text-white flex flex-col items-start justify-center h-full px-4 sm:px-8 md:ml-[22rem] mobile-text-container">
+          <div className="mobile-text-wrapper">
+            <span className="block font-bold text-sm uppercase tracking-wide mt-0 sm:mt-[550px]">House</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight sm:leading-none">
+              Customised<br />Completion
+            </h1>
+          </div>
 
           {/* Button */}
-          <div className="mt-24">
+          <div className="mt-8 sm:mt-[30px] sm:ml-[-80px] mobile-button-wrapper">
             <button
               type='submit'
               onClick={openPopup}
@@ -76,64 +76,69 @@ const VideoOverlaySection = ({ openPopup }) => {
             </button>
           </div>
         </div>
-
-        {/* Video */}
-        <video className="absolute top-0 left-0 w-full h-full object-cover z-0" autoPlay loop muted>
-          <source src="/path/to/your/video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
       </div>
 
-      {/* Quick Enquire Button */}
-      <div className="fixed top-1/2 transform -translate-y-1/2 -right-8 z-30">
-        <button onClick={openPopup} className="bg-blue-400 text-black font-semibold py-3 px-6 hover:bg-blue-500 transition-all block w-[155px] rotate-90 mb-28">
+      {/* Quick Enquire and WhatsApp Buttons */}
+      <div className="fixed bottom-4 right-4 sm:top-1/2 sm:bottom-auto sm:transform sm:-translate-y-1/2 sm:-right-8 z-30 flex flex-col mobile-action-buttons">
+        <button onClick={openPopup} className="bg-blue-400 text-black font-semibold py-3 px-6 hover:bg-blue-500 transition-all block w-[155px] rotate-90 mb-28 mobile-enquiry-button">
           Quick Enquire
         </button>
-        <a href="https://wa.me/YOUR_PHONE_NUMBER" className="bg-blue-400 ml-14 text-[#000] font-semibold py-3 px-5 hover:bg-green-600 transition-all block w-[50px]">
+        <a href="https://wa.me/YOUR_PHONE_NUMBER" className="bg-blue-400 ml-14 text-[#000] font-semibold py-3 px-5 hover:bg-green-600 transition-all block w-[50px] rotate-90 mobile-whatsapp-button">
           <i className="fab fa-whatsapp mr-2"></i>
         </a>
       </div>
 
-      {/* Mobile View Adjustments */}
       <style jsx>{`
         @media (max-width: 640px) {
           .relative.w-full.h-screen.mt-16.sm\\:mt-24 {
             height: 100vh;
-          }
-          .relative.h-\\[500px\\].w-\\[500px\\] {
-            height: 100vh;
-            width: 100vw;
-          }
-          .border-container {
-            left: 10px; /* Move the border slightly to the left */
-            top: 10px; /* Adjust the top position if needed */
-            height: 200px; /* Decrease the height */
-            width: 100px; /* Decrease the width */
-            border: 4px solid blue; /* Ensure the border is visible */
-            background-color: rgba(0, 0, 255, 0.1); /* Debugging background color */
-          }
-          .text-white.flex.flex-col.items-start.justify-center.h-full.px-8.md\\:ml-\\[22rem\\] {
-            margin-left: 0;
-            padding: 2rem;
-          }
-          .block.font-bold.text-sm.uppercase.tracking-wide.mt-\\[550px\\] {
             margin-top: 0;
           }
-          .mt-24 {
-            margin-top: 2rem;
+          .border-container {
+            left: 10px;
+            top: 30%;
+            height: 500px;
+            width: 200px;
+            border: 4px solid rgba(96, 165, 250, 0.6);
+            background-color: rgba(96, 165, 250, 0.1);
           }
-          .fixed.top-1/2.transform.-translate-y-1/2.right-4.z-30 {
-            right: -50px; /* Move the button to the right by 50px */
-            top: auto;
-            bottom: 50%;
-            transform: rotate(90deg) translateY(50%);
+          .mobile-text-container {
+            top: 0;
+            padding: 1rem;
+            padding-top: 30%;
+            width: 100%;
+          }
+          .mobile-text-wrapper {
+            padding-left: 110px; /* Adjust this value to move text more or less to the right */
+          }
+          .mobile-button-wrapper {
+            padding-left: 20px; /* Adjust this value to align the button as desired */
+          }
+          .mt-8.sm\\:mt-\\[30px\\].sm\\:ml-\\[-80px\\] {
+            margin-top: 1rem;
+            margin-left: 0;
+          }
+          .block.font-bold.text-sm.uppercase.tracking-wide.mt-0.sm\\:mt-\\[550px\\] {
+            margin-top: 0;
+          }
+          .mobile-action-buttons {
+            flex-direction: column;
+            bottom: auto;
+            right: -42px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+          .mobile-enquiry-button {
+            margin-bottom: 7rem;
+          }
+          .mobile-whatsapp-button {
+            margin-left: 3.5rem;
           }
         }
       `}</style>
     </div>
   );
 };
-
 const AboutUsSection = () => (
   <div className="max-w-7xl mx-auto mt-16 px-4">
     <h2 className="text-2xl md:text-4xl font-semibold text-[#808080] mb-6">ABOUT US</h2>
